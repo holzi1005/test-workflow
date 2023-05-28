@@ -10,6 +10,7 @@ jobs:
   build:
     uses: holzi1005/test-workflow/.github/workflows/artifact.yml@main
 
+
   release:
     runs-on: ubuntu-latest
     steps:
