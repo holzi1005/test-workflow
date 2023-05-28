@@ -17,9 +17,14 @@ jobs:
     steps:
       - uses: actions/download-artifact@v3
         with:
-          name: jitsi-admin-application
-          path: jitsi-admin-application
-          
+          name: jitsi-admin-application_${{github.run_number}}
+          path: jitsi-admin-application_${{github.run_number}}
+    
+      - uses: actions/download-artifact@v3
+        with:
+          name: jitsi-admin-websocket_${{github.run_number}}
+          path: jitsi-admin-websocket_${{github.run_number}}
+  
       - name: Create new Release
         uses: actions/create-release@v1
         id: create_release
