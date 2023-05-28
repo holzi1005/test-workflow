@@ -72,10 +72,10 @@ jobs:
       - name: Download a Build Artifact
         uses: actions/download-artifact@v2.1.1
         with:
-          name: JA_websocket_GITHUB_CI_${{github.run_number}}
+          name: jitsi_admin_GITHUB_CI_${{github.run_number}}
   
       - name: Zip Release
-        uses: TheDoctor0/zip-release@0.7.1
+        uses: TheDoctor0/zip-release@master
         with:
           filename: release.zip
 
@@ -89,13 +89,13 @@ jobs:
           tag_name: release_{{github.run_number}}
           body_path: README.md
         env:
-          GITHUB_TOKEN: ${{ github.token }}
+          GITHUB_TOKEN: ${{ secrets.token }}
       - name: upload artifact
         uses: actions/upload-release-asset@v1
         env:
-          GITHUB_TOKEN: ${{ github.token }}
+          GITHUB_TOKEN: ${{ secrets.token }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./bin/azblogfilter.windows-amd64.zip
-          asset_name: azblogfilter.windows-amd64.zip
+          asset_path: release.zip
+          asset_name: release.zip
           asset_content_type: application/zip
