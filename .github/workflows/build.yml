@@ -18,20 +18,6 @@ jobs:
           replace: "laF_version=GITHUB.${{github.run_number}}"
           regex: false
           include: ".env.local"
-      - name: Install PHP Dependencies
-        uses: php-actions/composer@v6
-        with:
-          php_version: "8.0"
-          php_extensions: ldap xsl zip
-      - name: Install NPM Packages
-        uses: actions/setup-node@v3
-        with:
-          node-version: 16
-
-      - name: Build the Application JS ans CSS
-        run: |
-          npm install
-          npm run build
 
       - name: Build Websocket
         working-directory: nodejs/
