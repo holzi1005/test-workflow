@@ -21,7 +21,7 @@ jobs:
       - name: Install PHP Dependencies
         uses: php-actions/composer@v6
         with:
-          php_version: "8.2"
+          php_version: "7.4"
           php_extensions: ldap xsl zip
       - name: Install NPM Packages
         uses: actions/setup-node@v3
