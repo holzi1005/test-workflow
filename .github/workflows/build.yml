@@ -1,7 +1,11 @@
 name: Build Pipeline
 
 
-on: push
+on:
+  push:
+    branches:
+      - main
+      - 'freez**'
 
 
 jobs:
@@ -36,22 +40,10 @@ jobs:
         with:
           args: zip -qq -r jitsi-admin-application.zip .
 
-      - name: Upload Artifact
-        uses: actions/upload-artifact@v3
-        with:
-          name: jitsi-admin-application_GITHUB_CI_${{github.run_number}}
-          path: jitsi-admin-application.zip
-
       - name: zip websocket
         uses: montudor/action-zip@v1
         with:
           args: zip -qq -r jitsi-admin-websocket.zip nodejs/
-
-      - name: Upload Artifact Websocket
-        uses: actions/upload-artifact@v3
-        with:
-          name: jitsi-admin-websocket_GITHUB_CI_${{github.run_number}}
-          path: jitsi-admin-websocket.zip
 
       - name: Create new Release
         uses: actions/create-release@v1
