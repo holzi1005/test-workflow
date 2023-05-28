@@ -49,8 +49,8 @@ jobs:
         with:
           draft: false
           prerelease: false
-          release_name: Version_${{github.run_number}}
-          tag_name: release_${{github.run_number}}
+          release_name: Release_${{github.run_number}}
+          tag_name: ${{github.run_number}}
         env:
           GITHUB_TOKEN: ${{ secrets.token }}
   
