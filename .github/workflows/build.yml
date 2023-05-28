@@ -64,4 +64,12 @@ jobs:
         with:
           name: JA_websocket_GITHUB_CI_${{github.run_number}}
           path: nodejs/
-    # ... then your own project steps ...
+
+  create_release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download a Build Artifact
+        uses: actions/download-artifact@v2.1.1
+        with:
+          name: JA_websocket_GITHUB_CI_${{github.run_number}}
+  
