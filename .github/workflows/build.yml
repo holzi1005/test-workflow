@@ -25,7 +25,6 @@ jobs:
 
       - name: Clean up Build
         run: |
-          sudo chown -R $USER:$USER ./var
           rm -rf ./.github
           rm -rf ./.git
 
