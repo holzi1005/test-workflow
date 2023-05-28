@@ -1,11 +1,7 @@
 name: Build Pipeline
 
 
-on:
-  push:
-    branches:
-      - main
-      - 'freez**'
+on: push
 
 
 jobs:
