@@ -1,1 +1,41 @@
+name: Build Pipeline
+
+on: workflow_call
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Write Version
+        uses: jacobtomlinson/gha-find-replace@v3
+        with:
+          find: "laF_version=2.0.0-dev"
+          replace: "laF_version=GITHUB.${{github.run_number}}"
+          regex: false
+          include: ".env.local"
+
+      - name: Build Websocket
+        working-directory: nodejs/
+        run: npm install
+
+      - name: Clean up Build
+        run: |
+          rm -rf ./.github
+          rm -rf ./.git
+
+      - name: Move Env Variable
+        run: cp ./.env.sample ./.env.local
+
+      - name: zip Application
+        uses: montudor/action-zip@v1
+        with:
+          args: zip -qq -r jitsi-admin-application.zip .
+
+      - name: zip websocket
+        uses: montudor/action-zip@v1
+        with:
+          args: zip -qq -r jitsi-admin-websocket.zip nodejs/
 
