@@ -1,0 +1,50 @@
+name: Create Release
+
+on:
+  push:
+    branches:
+      - main
+      - master
+
+jobs:
+  build:
+    uses: holzi1005/test-workflow/.github/workflows/artifact.yml@main
+
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v3
+        with:
+          name: jitsi-admin-application
+          path: jitsi-admin-application
+          
+      - name: Create new Release
+        uses: actions/create-release@v1
+        id: create_release
+        with:
+          draft: false
+          prerelease: false
+          release_name: Release ${{github.run_number}}
+          tag_name: ci_${{github.run_number}}
+        env:
+          GITHUB_TOKEN: ${{ secrets.token }}
+
+      - name: Upload Asset to Release
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.token }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: jitsi-admin-websocket.zip
+          asset_name: jitsi-admin-websocket.zip
+          asset_content_type: application/zip
+
+      - name: Upload Asset to Release
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.token }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: jitsi-admin-application.zip
+          asset_name: jitsi-admin-application.zip
+          asset_content_type: application/zip
