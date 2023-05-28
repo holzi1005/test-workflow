@@ -42,11 +42,11 @@ jobs:
       - name: Upload articats
         uses: actions/upload-artifact@v3
         with:
-          name: jitsi-admin-application
+          name: jitsi-admin-application_${{github.run_number}}
           path: jitsi-admin-application.zip
   
       - name: Upload articats
         uses: actions/upload-artifact@v3
         with:
-          name: jitsi-admin-websocket
+          name: jitsi-admin-websocket_${{github.run_number}}
           path: jitsi-admin-websocket.zip
