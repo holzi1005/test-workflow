@@ -29,12 +29,13 @@ jobs:
         working-directory: nodejs/
         run: npm install
 
-      - name: Tar files
-        run: tar -czvf articats.tar .
+      - uses: montudor/action-zip@v1
+        with:
+          args: zip -qq -r jitsi-admin_${{github.run_number}}.zip .
 
       - name: Upload articats
         uses: actions/upload-artifact@v3
         with:
           name: jitsi-admin_${{github.run_number}}
-          path: .
+          path: jitsi-admin_${{github.run_number}}.zip
 
