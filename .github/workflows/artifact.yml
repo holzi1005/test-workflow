@@ -34,9 +34,3 @@ jobs:
         with:
           name: jitsi-admin-application_${{github.run_number}}
           path: .
-  
-      - name: Upload articats
-        uses: actions/upload-artifact@v3
-        with:
-          name: jitsi-admin-websocket_${{github.run_number}}
-          path: nodejs
