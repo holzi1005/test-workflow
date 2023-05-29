@@ -13,33 +13,8 @@ jobs:
     uses: holzi1005/test-workflow/.github/workflows/artifact.yml@main
 
   tag:
-    runs-on: ubuntu-latest
-    outputs:
-      version: ${{ steps.version.outputs.version }}
-      upload_url: ${{ steps.create_release.outputs.upload_url }}
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
+    uses: holzi1005/test-workflow/.github/workflows/create_release.yml@main
 
-      - uses: paulhatch/semantic-version@v5.0.2
-        id: version
-        with:
-          tag_prefix: "v"
-          major_pattern: "(MAJOR)"
-          minor_pattern: "(MINOR)"
-          change_path: .
-          version_format: "${major}.${minor}.${patch}"
-
-      - name: Create new Release with semantic-version tag
-        uses: actions/create-release@master
-        id: create_release
-        with:
-          draft: false
-          prerelease: false
-          release_name: Release ${{ steps.version.outputs.version }}
-          tag_name: v${{ steps.version.outputs.version }}
 
   release:
     needs:
