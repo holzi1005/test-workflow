@@ -15,13 +15,13 @@ jobs:
       - name: Install PHP Dependencies
         uses: php-actions/composer@v6
         with:
-          php_version: ${{ env.PHP_VERSION }}
+          php_version: ${{ vars.PHP_VERSION }}
           php_extensions: ldap xsl zip
 
       - name: Install NPM Packages
         uses: actions/setup-node@v3
         with:
-          node-version: ${{ env.NODE_VERSION }}
+          node-version: ${{ vars.NODE_VERSION }}
       - run: npm install
       - run: npm run build
 
