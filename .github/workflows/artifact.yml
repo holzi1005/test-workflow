@@ -12,14 +12,22 @@ jobs:
       - name: Move Env Variable
         run: cp ./.env.sample ./.env.local
 
-      - name: Build Websocket
+      - name: Install PHP Dependencies
+        uses: php-actions/composer@v6
+        with:
+          php_version: ${{ env.PHP_VERSION }}
+          php_extensions: ldap xsl zip
+
+      - name: Install NPM Packages
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+      - run: npm install
+      - run: npm run build
+
+      - name: Build JS for the Websocket
         working-directory: nodejs/
         run: npm install
-
-      - name: Clean up Build
-        run: |
-          rm -rf ./.github
-          rm -rf ./.git
 
       - name: Upload articats
         uses: actions/upload-artifact@v3
