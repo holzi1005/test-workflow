@@ -1,6 +1,9 @@
 name: Build artefacts for testing the build pipeline
 
-on: push
+on:
+  push:
+    branches:
+      - master
 
 jobs:
   build:
