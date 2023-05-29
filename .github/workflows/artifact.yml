@@ -12,14 +12,6 @@ jobs:
       - name: Move Env Variable
         run: cp ./.env.sample ./.env.local
 
-      - name: Write Version
-        uses: jacobtomlinson/gha-find-replace@v3
-        with:
-          find: "laF_version=2.0.0-dev"
-          replace: "laF_version=GITHUB.${{github.run_number}}"
-          regex: false
-          include: ".env.local"
-
       - name: Build Websocket
         working-directory: nodejs/
         run: npm install
