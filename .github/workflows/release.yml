@@ -10,7 +10,6 @@ jobs:
   build:
     uses: holzi1005/test-workflow/.github/workflows/artifact.yml@main
 
-
   release:
     runs-on: ubuntu-latest
     needs: build
@@ -20,14 +19,10 @@ jobs:
           # The prefix to use to identify tags
           tag_prefix: "v"
           major_pattern: "(MAJOR)"
-          major_regexp_flags: ""
           minor_pattern: "(MINOR)"
-          minor_regexp_flags: ""
-          version_format: "${major}.${minor}.${patch}-prerelease${increment}"
-          change_path: "src/my-service"
-          namespace: my-service
+          version_format: "${major}.${minor}.${patch}-pre${increment}"
           bump_each_commit: true
-          search_commit_body: false
+          search_commit_body: true
 
       - uses: actions/download-artifact@v3
         with:
