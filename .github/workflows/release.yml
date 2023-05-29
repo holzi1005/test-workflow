@@ -26,36 +26,28 @@ jobs:
           version_format: "${major}.${minor}.${patch}-prerelease${increment}"
           change_path: "src/my-service"
           namespace: my-service
-          bump_each_commit: false
+          bump_each_commit: true
           search_commit_body: false
-          user_format_type: "csv"
-          enable_prerelease_mode: true
 
       - uses: actions/download-artifact@v3
         with:
-          name: jitsi-admin-application_${{github.run_number}}
-          path: jitsi-admin-application_${{github.run_number}}
-
-      - uses: actions/download-artifact@v3
-        with:
-          name: jitsi-admin-websocket_${{github.run_number}}
-          path: jitsi-admin-websocket_${{github.run_number}}
+          name: jitsi-admin_${{github.run_number}}
+          path: jitsi-admin_${{github.run_number}}
 
       - name: Archive Release Application
         uses: thedoctor0/zip-release@0.7.1
         with:
           type: 'zip'
-          path: jitsi-admin-application_${{github.run_number}}
-          filename: jitsi-admin-application_${{github.run_number}}.zip
-          exclusions: '*.git* /*node_modules/* .editorconfig /*nodejs/*' 
+          path: jitsi-admin_${{github.run_number}}
+          filename: application_${{github.run_number}}.zip
+          exclusions: '*.git* *.github* *.gitlab* /*node_modules/* .editorconfig /*nodejs/*' 
 
       - name: Archive Release Websocket
         uses: thedoctor0/zip-release@0.7.1
         with:
           type: 'zip'
-          path: jitsi-admin-websocket_${{github.run_number}}
-          filename: jitsi-admin-websocket_${{github.run_number}}.zip
-          exclusions: '*.git* .editorconfig' 
+          path: jitsi-admin_${{github.run_number}}/nodejs
+          filename: websocket_${{github.run_number}}.zip
 
       - name: Create new Release
         uses: actions/create-release@master
@@ -74,7 +66,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.token }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: jitsi-admin-websocket_${{github.run_number}}.zip
+          asset_path: websocket_${{github.run_number}}.zip
           asset_name: jitsi-admin-websocket.zip
           asset_content_type: application/zip
 
@@ -84,6 +76,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.token }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: jitsi-admin-application_${{github.run_number}}.zip
+          asset_path: application_${{github.run_number}}.zip
           asset_name: jitsi-admin-application.zip
           asset_content_type: application/zip
