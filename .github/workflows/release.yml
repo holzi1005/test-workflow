@@ -46,7 +46,7 @@ jobs:
         with:
           type: 'zip'
           directory: jitsi-admin-application_${{github.run_number}}
-          filename: 'jitsi-admin-application.zip'
+          filename: jitsi-admin-application_${{github.run_number}}.zip
           exclusions: '*.git* /*node_modules/* .editorconfig /*nodejs/*' 
 
       - name: Archive Release Websocket
@@ -54,7 +54,7 @@ jobs:
         with:
           type: 'zip'
           directory: jitsi-admin-websocket_${{github.run_number}}
-          filename: 'jitsi-admin-websocket.zip'
+          filename: jitsi-admin-websocket_${{github.run_number}}.zip
           exclusions: '*.git* .editorconfig' 
 
       - name: Create new Release
