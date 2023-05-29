@@ -57,8 +57,8 @@ jobs:
           include: "release_folder/.env.local"
 
       - uses: montudor/action-zip@v1
-      - run: ln -la .
-      - run: ln -la release_folder
+      - run: ls -la .
+      - run: ls -la release_folder
       - run: zip -qq -r application_release.zip .
         working-directory: release_folder
         
