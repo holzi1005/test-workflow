@@ -38,16 +38,14 @@ jobs:
         uses: thedoctor0/zip-release@0.7.1
         with:
           type: 'zip'
-          path: jitsi-admin_${{github.run_number}}
-          filename: application_${{github.run_number}}.zip
+          directory: jitsi-admin_${{github.run_number}}
           exclusions: '*.git* *.github* *.gitlab* /*node_modules/* .editorconfig /*nodejs/*' 
 
       - name: Archive Release Websocket
         uses: thedoctor0/zip-release@0.7.1
         with:
           type: 'zip'
-          path: jitsi-admin_${{github.run_number}}/nodejs
-          filename: websocket_${{github.run_number}}.zip
+          directory: jitsi-admin_${{github.run_number}}/nodejs
 
       - name: Create new Release
         uses: actions/create-release@master
@@ -60,22 +58,22 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.token }}
 
-      - name: Upload Asset to Release
+      - name: Upload Websocket Asset to Release
         uses: actions/upload-release-asset@master
         env:
           GITHUB_TOKEN: ${{ secrets.token }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: websocket_${{github.run_number}}.zip
+          asset_path: jitsi-admin_${{github.run_number}}/nodejs/release.zip
           asset_name: jitsi-admin-websocket.zip
           asset_content_type: application/zip
 
-      - name: Upload Asset to Release
+      - name: Upload Application Asset to Release
         uses: actions/upload-release-asset@master
         env:
           GITHUB_TOKEN: ${{ secrets.token }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: application_${{github.run_number}}.zip
+          asset_path: jitsi-admin_${{github.run_number}}/release.zip
           asset_name: jitsi-admin-application.zip
           asset_content_type: application/zip
