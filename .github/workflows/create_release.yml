@@ -1,10 +1,6 @@
 name: Create major or minor version tag
 
-on:
-  workflow_call:
-    secrets:
-      GITHUB_TOKEN:
-        required: true
+on: workflow_call
 
 jobs:
   create_release:
