@@ -5,7 +5,6 @@ on: workflow_call
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v3
 
@@ -24,6 +23,7 @@ jobs:
           node-version: ${{ vars.NODE_VERSION }}
       - run: npm install
       - run: npm run build
+      - run: rm -r node_modules
 
       - name: Build JS for the Websocket
         working-directory: nodejs/
