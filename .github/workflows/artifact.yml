@@ -24,6 +24,7 @@ jobs:
           node-version: ${{ env.NODE_VERSION }}
       - run: npm install
       - run: npm run build
+      - run: rm -r node_modules
 
       - name: Build JS for the Websocket
         working-directory: nodejs/
