@@ -9,12 +9,12 @@ on:
       - master
 
 jobs:
-  build:
+  artifact:
     uses: holzi1005/test-workflow/.github/workflows/artifact.yml@main
 
   create_release:
     needs:
-      - build
+      - artifact
 
     runs-on: ubuntu-latest
     steps:
@@ -54,7 +54,7 @@ jobs:
           find: "laF_version=2.0.0-dev"
           replace: "laF_version=${{ steps.version.outputs.version }}"
           regex: false
-          include: "release_folder/.env.local"
+          include: "release_folder/.env"
 
       - name: Archive Release for application
         uses: thedoctor0/zip-release@0.7.1
