@@ -36,6 +36,5 @@ jobs:
       - name: Upload articats
         uses: actions/upload-artifact@v3
         with:
-          name: jitsi-admin_${{github.run_number}}
-          path: jitsi-admin_${{github.run_number}}.zip
+          name: jitsi-admin_${{github.run_number}}.zip
 
