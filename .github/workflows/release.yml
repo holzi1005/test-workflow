@@ -22,13 +22,10 @@ jobs:
       - uses: paulhatch/semantic-version@v5.0.2
         id: version
         with:
-          # The prefix to use to identify tags
-          tag_prefix: "v"
           major_pattern: "(MAJOR)"
           minor_pattern: "(MINOR)"
           change_path: .
           version_format: "${major}.${minor}.${patch}"
-          bump_each_commit: true
 
       - uses: actions/download-artifact@v3
         with:
