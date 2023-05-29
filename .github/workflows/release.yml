@@ -44,8 +44,7 @@ jobs:
           name: jitsi-admin_${{github.run_number}}
 
       - uses: montudor/action-zip@v1
-        with:
-          args: unzip -qq jitsi-admin_${{github.run_number}}.zip -d release_folder
+      - run: unzip -qq jitsi-admin_${{github.run_number}}.zip -d release_folder
 
 
       - name: Write semantic Version in .env.local
@@ -56,15 +55,15 @@ jobs:
           regex: false
           include: "release_folder/.env.local"
 
-      - uses: montudor/action-zip@v1
       - run: ls -la .
       - run: ls -la release_folder
-      - run: zip -qq -r application_release.zip .
-        working-directory: release_folder
+      - run: zip -qq -r application_release.zip release_folder
+        working-directory: .
         
-      - run: zip -qq -r websocket_release.zip .
-        working-directory: release_folder/nodejs
+      - run: zip -qq -r websocket_release.zip release_folder/nodejs
+        working-directory: .
 
+      - run: ls -la .
 
       - name: Upload Websocket Asset to Release
         uses: actions/upload-release-asset@master
