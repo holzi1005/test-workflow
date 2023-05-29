@@ -43,9 +43,7 @@ jobs:
         with:
           name: jitsi-admin_${{github.run_number}}
 
-      - uses: montudor/action-zip@v1
-      - run: unzip -qq jitsi-admin_${{github.run_number}}.zip -d release_folder
-
+      - run: unzip -qq jitsi-admin_${{github.run_number}}.zip -d .
 
       - name: Write semantic Version in .env.local
         uses: jacobtomlinson/gha-find-replace@v3
@@ -57,11 +55,25 @@ jobs:
 
       - run: ls -la .
       - run: ls -la release_folder
-      - run: zip -qq -r application_release.zip release_folder
-        working-directory: .
+#      - run: zip -qq -r application_release.zip release_folder
+#        working-directory: .
         
-      - run: zip -qq -r websocket_release.zip release_folder/nodejs
-        working-directory: .
+#      - run: zip -qq -r websocket_release.zip release_folder/nodejs
+#        working-directory: .
+
+      - name: Archive Release for application
+        uses: thedoctor0/zip-release@0.7.1
+        with:
+          type: 'zip'
+          filename: 'application_release.zip'
+          exclusions: '*.git* *.github* /*node_modules/* .editorconfig'
+
+      - name: Archive Release for websocket
+        uses: thedoctor0/zip-release@0.7.1
+        with:
+          type: 'zip'
+          filename: 'websocket_release.zip'
+          directory: nodejs
 
       - run: ls -la .
 
@@ -71,7 +83,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.token }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: release_folder/nodejs/websocket_release.zip
+          asset_path: nodejs/websocket_release.zip
           asset_name: websocket.zip
           asset_content_type: application/zip
 
@@ -81,6 +93,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.token }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: release_folder/application_release.zip
+          asset_path: application_release.zip
           asset_name: application.zip
           asset_content_type: application/zip
