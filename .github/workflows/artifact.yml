@@ -34,3 +34,4 @@ jobs:
         with:
           name: jitsi-admin_${{github.run_number}}
           path: .
+
