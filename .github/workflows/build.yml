@@ -7,3 +7,4 @@ jobs:
     uses: holzi1005/test-workflow/.github/workflows/artifact.yml@main
   test:
     uses: holzi1005/test-workflow/.github/workflows/test.yml@main
+    needs: build
