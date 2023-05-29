@@ -43,7 +43,7 @@ jobs:
         with:
           name: jitsi-admin_${{github.run_number}}
 
-      - run: unzip -qq jitsi-admin_${{github.run_number}}.zip -d .
+      - run: unzip -qq -f jitsi-admin_${{github.run_number}}.zip -d .
 
       - name: Write semantic Version in .env.local
         uses: jacobtomlinson/gha-find-replace@v3
