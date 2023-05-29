@@ -27,14 +27,21 @@ jobs:
           major_pattern: "(MAJOR)"
           minor_pattern: "(MINOR)"
           change_path: .
-          version_format: "${major}.${minor}.${patch}-RC${increment}"
+          version_format: "${major}.${minor}.${patch}"
           bump_each_commit: true
-          search_commit_body: true
 
       - uses: actions/download-artifact@v3
         with:
           name: jitsi-admin_${{github.run_number}}
           path: jitsi-admin_${{github.run_number}}
+
+      - name: Write semantic Version in .env.local
+        uses: jacobtomlinson/gha-find-replace@v3
+        with:
+          find: "laF_version=GITHUB.${{github.run_number}}"
+          replace: "laF_version=${{ steps.version.outputs.version }}"
+          regex: false
+          include: "jitsi-admin_${{github.run_number}}/.env.local"
 
       - name: Archive Release Application
         uses: thedoctor0/zip-release@0.7.1
