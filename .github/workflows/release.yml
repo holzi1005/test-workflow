@@ -72,7 +72,7 @@ jobs:
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: jitsi-admin_${{github.run_number}}/nodejs/release.zip
-          asset_name: jitsi-admin-websocket.zip
+          asset_name: websocket.zip
           asset_content_type: application/zip
 
       - name: Upload Application Asset to Release
@@ -82,5 +82,5 @@ jobs:
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: jitsi-admin_${{github.run_number}}/release.zip
-          asset_name: jitsi-admin-application.zip
+          asset_name: application.zip
           asset_content_type: application/zip
