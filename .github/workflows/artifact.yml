@@ -29,6 +29,9 @@ jobs:
         working-directory: nodejs/
         run: npm install
 
+      - name: Tar files
+        run: tar -czvf articats.tar .
+
       - name: Upload articats
         uses: actions/upload-artifact@v3
         with:
