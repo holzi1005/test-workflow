@@ -43,6 +43,9 @@ jobs:
           tag_name: v${{ steps.version.outputs.version }}
 
   upload_asset:
+    needs:
+      - artifact
+      - create_release
     runs-on: ubuntu-latest
     steps:
 
